@@ -78,9 +78,77 @@ function addMoreEmployees(){
     
             // exit app else
             case "Done":
-            createHtmlFile()
+            renderFile();
 
         }
+
+    })
+}
+
+function engineerSetup(){
+
+    return inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the engineers name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is the employees ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is the employees email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is the engineers github?",
+            name: "github"
+        }
+    ]).then((data) => {
+
+        const newEngineer = new Engineer ( data.name, data.id, data.email, data.github);
+
+        listOfProjectEmployees.push(newEngineer);
+
+        addMoreEmployees();
+
+    })
+}
+
+function internSetup(){
+
+    return inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the interns name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is the employees ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is the employees email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is the interns school?",
+            name: "school"
+        }
+    ]).then((data) => {
+
+        const newIntern = new Intern ( data.name, data.id, data.email, data.school);
+
+        listOfProjectEmployees.push(newIntern);
+
+        addMoreEmployees();
 
     })
 }

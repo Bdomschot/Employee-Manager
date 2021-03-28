@@ -9,8 +9,81 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const listOfProjectEmployees = [];
 
+function managerSetup(){
 
+    return inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the managers name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is the employees ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is the employees email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is the managers office number?",
+            name: "officeNumber"
+        }
+    ]).then((data) => {
+
+        const newManager = new Manager ( data.name, data.id, data.email, data.officeNumber);
+
+        listOfProjectEmployees.push(newManager);
+
+        addMoreEmployees();
+
+    })
+}
+
+function addMoreEmployees(){
+    return inquirer.prompt([
+        {
+        type:'list',
+        message: "Do you wish to add more members?",
+        choices: [
+            "Add Manager",
+            "Add Engineer",
+            "Add Intern",
+            "Done",
+        ],
+        name: "addType",
+        }
+
+     ]).then ((data) => {
+
+        switch(data.addType){
+            case "Add Manager":
+            managerSetup();
+            break;
+
+            // if the selected a new engineer
+            case "Add Engineer":
+            engineerSetup();
+            break;
+
+            // else if the user 
+            case "Add Intern":
+            internSetup();
+            break;
+    
+            // exit app else
+            case "Done":
+            createHtmlFile()
+
+        }
+
+    })
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 

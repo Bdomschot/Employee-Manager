@@ -152,6 +152,22 @@ function internSetup(){
 
     })
 }
+
+function renderFile(){
+
+    const newFile = render ( listOfProjectEmployees );
+    fs.writeFile(outputPath, newFile, (err) => {
+        if (err) throw err;
+        console.log(`Your new file has been saved to ${OUTPUT_DIR}.`)
+    })
+
+}
+
+function init(){
+    managerSetup()
+}
+
+init();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
